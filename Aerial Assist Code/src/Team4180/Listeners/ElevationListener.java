@@ -6,7 +6,7 @@
 
 package Team4180.Listeners;
 
-import Team4180.Driving;
+import Team4180.Claw;
 
 /**
  *
@@ -15,19 +15,19 @@ import Team4180.Driving;
 
 //MOVING UP ASSEMBLY: LEFT MOVEMENT LISTENER
 public class ElevationListener implements JoystickListener{
-    private Driving drive;
+    private Claw CLAW;
     
     /* These methods (ElevationListener and joystickMoved) update the y value on
      * joystick2 which raises or lowers the claw using a lead screw.
      */
-    public ElevationListener (Driving drive){
-        this.drive = drive;
+    public ElevationListener (Claw claw){
+        CLAW = claw;
     }
     //Updates position of joystick claw
     //Takes in the coordinates of the joystick
-    public void joystickMoved(double x, double y, double z){
-        drive.updateLeftY(y);
-        //claw.clawElevation();
-        drive.reCalcLeftVelocity();
+
+    public void joystickMoved(double x, double y, double z) {
+        CLAW.updateY(y);
+        CLAW.clawElevation();
     }
 }

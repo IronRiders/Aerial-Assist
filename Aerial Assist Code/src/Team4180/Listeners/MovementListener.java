@@ -27,7 +27,7 @@ public class MovementListener implements JoystickListener {
         System.out.println("y = " + y);
         System.out.println("z = " + z);
         driving.updateX(x);
-        driving.updateRightY(y);
+        driving.updateY(y);
         driving.updateZ(z);
         driving.reCalcRightVelocity();
     }

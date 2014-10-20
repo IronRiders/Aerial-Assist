@@ -12,20 +12,15 @@ import Team4180.Input.Attack3Joystick.Button;
 import Team4180.Input.DigitalInputHandler;
 import Team4180.Listeners.BallCaughtListener;
 import Team4180.Listeners.BallDetectListener;
-//import Team4180.Listeners.ButtonListener;
 import Team4180.Listeners.ClawButtonListener;
 import Team4180.Listeners.ClawSwitchListener;
 import Team4180.Listeners.TriggerListener;
 import Team4180.Listeners.MovementListener;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Servo;
 import Team4180.Listeners.ElevationListener;
 import Team4180.Listeners.ElevationSwitchListener;
 import Team4180.Listeners.PressureLimitListener;
 import Team4180.Listeners.ReloadSwitchListener;
-import Team4180.Listeners.SwitchListener;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
 
@@ -100,7 +95,7 @@ public class Robot extends IterativeRobot {
         claw = new Claw();
         pressure = new Pressure();
         pressureLimitL = new PressureLimitListener(pressure);
-        clawElevationL = new ElevationListener(driving);
+        clawElevationL = new ElevationListener(claw);
         clawButtonL = new ClawButtonListener(claw,pressure);
         clawLimitL = new ClawSwitchListener(claw, CLOSECLAW_LIMIT_SWITCH, OPENCLAW_LIMIT_SWITCH);
         reloadSwitchL = new ReloadSwitchListener(claw,RELOAD_LIMIT_SWITCH);
@@ -194,6 +189,3 @@ public class Robot extends IterativeRobot {
     }
 
 }
-    
-   
-

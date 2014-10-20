@@ -32,25 +32,21 @@ public class Claw {
     public static final int TEMP_PORT = 10; //if hardware has not given us a port yet then TEMP_PORT is used
     public static final int CLAW_OPEN_CLOSE_PORT = 6;
     public static final int CLAW_RAISE_LOWER_PORT = 5;
-    //public static final int PULL_BACK_PISTON_PORT = 4;
     public static final int RATCHET_PORT = 10;
     public static final int DRUM_PORT = 4;
     public static final int CLUTCH_SERVO_PORT = 7;//not temp
 
     public static final double DISENGAGE_CLUTCH_ANGLE = 70; // -20
     public static final double ENGAGE_CLUTCH_ANGLE = 180; // -100
-    public static final double DISENGAGE_RATCHET_ANGLE = 100; //HARDWARE unknown
-    public static final double ENGAGE_RATCHET_ANGLE = 0; //HARDWARE unknown
+    public static final double DISENGAGE_RATCHET_ANGLE = 100;
+    public static final double ENGAGE_RATCHET_ANGLE = 0;
     
     //controls the speed of the talons for the claw and drum
-    public final double CLOSE_CLAW_VALUE = -1;//needs to be tested
-    public final double OPEN_CLAW_VALUE = 1;//needs to be tested
-    public final double DRUM_FORWARD_SPEED = 1;//needs to be tested
-    public final double DRUM_BACKWARDS_SPEED = -1;//needs to be tested
+    public final double CLOSE_CLAW_VALUE = -1;
+    public final double OPEN_CLAW_VALUE = 1;
+    public final double DRUM_FORWARD_SPEED = 1;
+    public final double DRUM_BACKWARDS_SPEED = -1;
 
-    /**
-     * @return the clutch
-     */
     public Servo getClutch() {
         return clutch;
     }
@@ -108,9 +104,7 @@ public class Claw {
             Robot.log(Robot.DEBUG_CLAW, "Cannot close claw more");
         }
     }
-
-    //takes in a string...
-    //used to set state of claw
+    
     public void setClawState(String state) {
         clawState = state;
         Robot.log(Robot.DEBUG_CLAW, "Claw state: " + state);
@@ -133,8 +127,6 @@ public class Claw {
         return clawElevationState;
     }
 
-    //This method stops movement of openeing and closing the claw by setting
-    //the openClose value back to zero.
     public void stopClaw() {
         double old = openClose.get();
         openClose.set(0);
@@ -148,14 +140,8 @@ public class Claw {
 
     public void updateZ(double z) {
         zValueNow = z;
-        //CLOSE_CLAW_VALUE = -.7;//needs to be tested
-        //OPEN_CLAW_VALUE = .7;//needs to be tested
-        //DRUM_FORWARD_SPEED = 1;//needs to be tested
-        //DRUM_BACKWARDS_SPEED = -1;//needs to be tested
     }
 
-    //This method controls the pitch(up and down) of the claw. Takes the y value from the 2nd joystick
-    //The pitch is controlled by the actual y value of the joystick (not a button).
     public void clawElevation() {
         double newY = ((double) (int) (yValueNow * 100)) / 100;
         raiseLower.set(newY);

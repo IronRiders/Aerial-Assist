@@ -51,12 +51,6 @@ public class Driving {
     public void updateY(double y){
         CurrentYValue = y;
     }
-    public void updateRightY(double y){
-        CurrentLeftYValue = y;
-    }
-    public void updateLeftY(double y){
-        CurrentRightYValue = y;
-    }
     public void updateZ(double z){
         CurrentZValue = 1;
     }
