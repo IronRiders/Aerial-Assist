@@ -18,6 +18,10 @@ public class PressureLimitListener implements SwitchListener {
 
     private Pressure PRESSURE_CONTROL;
     
+    /**
+     * Assigns the Pressure class
+     * @param pressure The Pressure class that this will reference
+     */
     public PressureLimitListener(Pressure pressure){
         this.PRESSURE_CONTROL = pressure;
     }
@@ -27,7 +31,10 @@ public class PressureLimitListener implements SwitchListener {
 
     public void switchOn(int port) {
     }
-
+    /**
+     * When the switch is release the relay will be turned off
+     * @param port 
+     */
     public void switchOff(int port) {
         PRESSURE_CONTROL.relayOff();
     }

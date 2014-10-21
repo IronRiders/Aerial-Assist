@@ -16,16 +16,21 @@ import Team4180.Claw;
 //MOVING UP ASSEMBLY: LEFT MOVEMENT LISTENER
 public class ElevationListener implements JoystickListener{
     private Claw CLAW;
-    
-    /* These methods (ElevationListener and joystickMoved) update the y value on
-     * joystick2 which raises or lowers the claw using a lead screw.
+
+    /**
+     * Assigns the claw which will be referenced by this class
+     * @param claw
      */
+    
     public ElevationListener (Claw claw){
         CLAW = claw;
     }
-    //Updates position of joystick claw
-    //Takes in the coordinates of the joystick
-
+    /**
+     * When the joystick is moved this method updates the y value of the Claw and moves it
+     * @param x
+     * @param y the new y value
+     * @param z 
+     */
     public void joystickMoved(double x, double y, double z) {
         CLAW.updateY(y);
         CLAW.moveClaw();

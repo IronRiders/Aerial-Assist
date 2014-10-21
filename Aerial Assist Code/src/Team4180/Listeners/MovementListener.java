@@ -13,14 +13,21 @@ import Team4180.Driving;
  */
 public class MovementListener implements JoystickListener {
     private Driving driving;
-    
-    //Runs driving class 
-    //Takes in driving
-    public MovementListener (Driving driving){
+
+    /**
+     * Assigns the Driving class this will reference
+     * @param driving The driving class to be used
+     */
+        public MovementListener (Driving driving){
         this.driving = driving;
     }
-    //Determines if the joystick has moved and updates    
-    //Takes in the coordinates of joystick position
+    /**
+     * When the joystick has moved, this method is called to update the x y and z values of the Driving class
+     * After the values have been updated, it calls reCalcVelocity()
+     * @param x The new x value
+     * @param y The new y value
+     * @param z The new z value
+     */
     public void joystickMoved(double x, double y, double z){
         System.out.println("x = " + x);
         System.out.println("y = " + y);

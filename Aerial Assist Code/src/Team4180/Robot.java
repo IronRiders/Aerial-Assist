@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import Team4180.Listeners.ElevationListener;
 import Team4180.Listeners.ElevationSwitchListener;
 import Team4180.Listeners.PressureLimitListener;
-import Team4180.Listeners.ReloadSwitchListener;
 import edu.wpi.first.wpilibj.Timer;
 
 
@@ -33,25 +32,75 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Robot extends IterativeRobot {
     
+    /**
+     * Decides if the debugger will pay attention to Switch Listener
+     */
     public static final boolean DEBUG_SWITCH_LISTENER = false;
+
+    /**
+     * Decides if the debugger will pay attention to the Claw
+     */
     public static final boolean DEBUG_CLAW = true;
+
+    /**
+     * Decides if the debugger will pay attention to the Claw listeners
+     */
     public static final boolean DEBUG_CLAW_LISTENERS = true;
     
     // Setting this to true will spin the clutch as long as the buttons are pushed
     // It will not spin to predetermined angles
-    public static final boolean INCREMENTAL_CLUTCH = false;
     
+    /**
+     * The ball detect time which is constantly being reset which
+     * determines when the claw will stop trying to close the claw
+     * to catch the ball
+     */
     public static float BALL_DETECT_TIME;
-    
-    //the port numbers of the limit switches
+
+    /**
+     * The port which is used if the port number has not been decided yet
+     */
     public static final int TEMP_PORT = 10;
+
+    /**
+     * The limit switch for the air tanks, if the limit switch is pressed the
+     * tanks will release all of their air for safety
+     */
     public static final int PRESSURE_LIMIT_PORT = 4;
+
+    /**
+     * The port number for the relay on the robot which controls the air tanks
+     */
     public static final int RELAY_PORT = TEMP_PORT;
+
+    /**
+     * The port number for the limit switch on the front of the claw.
+     * If it's pressed the claw will stop moving but can still be opened.
+     */
     public static final int CLOSECLAW_LIMIT_SWITCH = 8;
+
+    /**
+     * The port number for the limit switch on the back of the claw.
+     * If it's pressed the claw will stop moving but can still be closed 
+     */
     public static final int OPENCLAW_LIMIT_SWITCH = 14;
-    public static final int RELOAD_LIMIT_SWITCH = 5;//was TRIGGER_LIMIT_SWITCH We dont have one of these
+
+    /**
+     * The port number for the limit switch on the bottom of the lead screw
+     * If it's pressed the claw will stop moving down, but can still be moved up
+     */
     public static final int ELEVATION_SWITCH_LISTENER_PORT = 2;
+
+    /**
+     * The port number for the limit switch on the palm of the claw
+     * If it's pressed the claw will close for two seconds, then will stop closing
+     */
     public static final int DETECT_BALL_PORT = 13;
+
+    /**
+     * The port number for the limit switch on one of the prongs of the claw. It rarely works but
+     * it's good to still have it incase it does work
+     */
     public static final int BALL_CAUGHT_PORT = 11;//find out what module number is for digital input
    // public static final int MODULE_NUMBER = 1;//This is for the new crio only
     
@@ -68,7 +117,6 @@ public class Robot extends IterativeRobot {
     private ElevationListener clawElevationL;
     private ClawButtonListener clawButtonL;
     private DigitalInputHandler digitalInputHandler;
-    private ReloadSwitchListener reloadSwitchL;
     private ElevationSwitchListener elevationSwitchL;
     private BallDetectListener ballDetectL;
     private BallCaughtListener ballCaughtL;
@@ -83,7 +131,7 @@ public class Robot extends IterativeRobot {
         //initialize everything bit
         joystick1 = new Attack3Joystick(1);
         joystick2 = new Attack3Joystick(2);
-        digitalInputPorts = new int[] {PRESSURE_LIMIT_PORT, BALL_CAUGHT_PORT,CLOSECLAW_LIMIT_SWITCH, OPENCLAW_LIMIT_SWITCH, RELOAD_LIMIT_SWITCH, DETECT_BALL_PORT, ELEVATION_SWITCH_LISTENER_PORT};
+        digitalInputPorts = new int[] {PRESSURE_LIMIT_PORT, BALL_CAUGHT_PORT,CLOSECLAW_LIMIT_SWITCH, OPENCLAW_LIMIT_SWITCH, DETECT_BALL_PORT, ELEVATION_SWITCH_LISTENER_PORT};
         digitalInputHandler = new DigitalInputHandler(digitalInputPorts);
         
         // driving
@@ -98,7 +146,6 @@ public class Robot extends IterativeRobot {
         clawElevationL = new ElevationListener(claw);
         clawButtonL = new ClawButtonListener(claw,pressure);
         clawLimitL = new ClawSwitchListener(claw, CLOSECLAW_LIMIT_SWITCH, OPENCLAW_LIMIT_SWITCH);
-        reloadSwitchL = new ReloadSwitchListener(claw,RELOAD_LIMIT_SWITCH);
         elevationSwitchL = new ElevationSwitchListener(claw,ELEVATION_SWITCH_LISTENER_PORT);
         ballDetectL = new BallDetectListener(claw, DETECT_BALL_PORT);
         ballCaughtL = new BallCaughtListener(claw, BALL_CAUGHT_PORT);
@@ -167,13 +214,13 @@ public class Robot extends IterativeRobot {
         joystick1.listen();
         //joystick2.listen();
         digitalInputHandler.listen();
-//        if(System.currentTimeMillis() - BALL_DETECT_TIME >= 2000 && BALL_DETECT_TIME != 0)
-//        {
-//            claw.stopClaw();
-//            BALL_DETECT_TIME = 0;
-//            claw.setClawState(Claw.State.CLOSED);
-//            Robot.log(DEBUG_CLAW, "The timer has stopped the claw");
-//        }
+        if(System.currentTimeMillis() - BALL_DETECT_TIME >= 2000 && BALL_DETECT_TIME != 0)
+        {
+            claw.stopClaw();
+            BALL_DETECT_TIME = 0;
+            claw.setClawState(Claw.State.CLOSED);
+            Robot.log(DEBUG_CLAW, "The timer has stopped the claw");
+        }
     }
     
     /**
@@ -182,6 +229,11 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
     }
     
+    /**
+     *
+     * @param flag
+     * @param message
+     */
     public static void log(boolean flag, String message) {
         if (flag) {
             System.out.println(message);

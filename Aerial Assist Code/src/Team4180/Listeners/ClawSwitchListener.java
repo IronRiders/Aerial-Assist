@@ -17,6 +17,13 @@ public class ClawSwitchListener implements SwitchListener {
     private int openLimitSwitchPort;
     private Claw claw;
 
+    /**
+     * Assigns the claw which will be referenced by this
+     * Assigns the ports which will be used
+     * @param claw The claw that will be used
+     * @param closePort The port on the front of the claw
+     * @param openPort The port on the back of the claw
+     */
     public ClawSwitchListener(Claw claw, int closePort, int openPort) {
         this.claw = claw;
         this.closedLimitSwitchPort = closePort;
@@ -29,6 +36,12 @@ public class ClawSwitchListener implements SwitchListener {
     public void switchOff(int port) {
     }
 
+    /**
+     * If the openClawLimitSwitch was hit then it stops the claw from opening too much
+     * If the closeClawLimitSwitch was hit then it stops the claw from closing too much
+     * @param port The port number of the switch that was changed
+     * @param state The new state of the limit switch
+     */
     public void switchState(int port, boolean state) {
         if(port == openLimitSwitchPort && state && claw.getClawState().equals(Claw.State.OPENING))
         {

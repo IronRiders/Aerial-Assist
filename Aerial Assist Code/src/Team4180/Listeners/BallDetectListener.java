@@ -19,6 +19,12 @@ public class BallDetectListener implements SwitchListener {
     private int ballDetectPort;
     private boolean isLoaded = false;
     
+    /**
+     * Assigns the claw which will be referenced by this class
+     * Assigns the limit switch which will be used
+     * @param claw
+     * @param ballDetectPort
+     */
     public BallDetectListener(Claw claw, int ballDetectPort) {
         this.claw = claw;
         this.ballDetectPort = ballDetectPort;
@@ -30,6 +36,11 @@ public class BallDetectListener implements SwitchListener {
     public void switchOff (int port) {
     }
 
+    /**
+     * If the right port was hit then it starts closing the claw to catch the ball
+     * @param port The port number to check
+     * @param state The state of the port
+     */
     public void switchState(int port, boolean state) {
         if(port == ballDetectPort && state && !(claw.getClawState().equals(Claw.State.CLOSED))){
             System.out.println("The ball has been detected. And the state is: " + state);

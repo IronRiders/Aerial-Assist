@@ -14,17 +14,18 @@ public interface SwitchListener {
        
     /**
      * This gets called repeatedly with the Limit switch state
-     * @param port 
+     * @param port The port number of the switch whose state was changed
+     * @param state the state of the Switch
      */
     public void switchState(int port, boolean state);
     /**
      * This gets called when the Limit switch turns on
-     * @param port 
+     * @param port The port number of the switch
      */
     public void switchOn(int port);
     /**
      * This gets called when the Limit switch turns off
-     * @param port 
+     * @param port The port number of the switch
      */
     public void switchOff(int port);
 }
