@@ -165,15 +165,15 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         joystick1.listen();
-        joystick2.listen();
+        //joystick2.listen();
         digitalInputHandler.listen();
-        if(System.currentTimeMillis() - BALL_DETECT_TIME >= 2000 && BALL_DETECT_TIME != 0)
-        {
-            claw.stopClaw();
-            BALL_DETECT_TIME = 0;
-            claw.setClawState(Claw.State.CLOSED);
-            Robot.log(DEBUG_CLAW, "The timer has stopped the claw");
-        }
+//        if(System.currentTimeMillis() - BALL_DETECT_TIME >= 2000 && BALL_DETECT_TIME != 0)
+//        {
+//            claw.stopClaw();
+//            BALL_DETECT_TIME = 0;
+//            claw.setClawState(Claw.State.CLOSED);
+//            Robot.log(DEBUG_CLAW, "The timer has stopped the claw");
+//        }
     }
     
     /**

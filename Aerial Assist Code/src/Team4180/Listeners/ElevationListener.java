@@ -28,6 +28,6 @@ public class ElevationListener implements JoystickListener{
 
     public void joystickMoved(double x, double y, double z) {
         CLAW.updateY(y);
-        CLAW.clawElevation();
+        CLAW.moveClaw();
     }
 }

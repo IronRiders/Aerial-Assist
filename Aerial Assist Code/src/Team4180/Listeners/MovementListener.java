@@ -11,7 +11,6 @@ import Team4180.Driving;
  *
  * @author ros_kecooper
  */
-//MOVING UP ASSEMBLY CODE: RIGHT MOVEMENT LISTENER
 public class MovementListener implements JoystickListener {
     private Driving driving;
     
@@ -28,7 +27,6 @@ public class MovementListener implements JoystickListener {
         System.out.println("z = " + z);
         driving.updateX(x);
         driving.updateY(y);
-        driving.updateZ(z);
-        driving.reCalcRightVelocity();
+        driving.reCalcVelocity();
     }
 }

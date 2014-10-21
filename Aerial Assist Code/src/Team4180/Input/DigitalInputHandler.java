@@ -23,10 +23,13 @@ public class DigitalInputHandler {
     
     private final int[] ports;
     private final DigitalInput[] digitalInputs;
-    
-    //This method assigns the given ports to vaules in a DigitalInput array
-    //Accepts int array or ports in which limit switches will be used
-    public DigitalInputHandler(int[] digitalInputPorts){
+
+    /**
+     * This method assigns the given ports to values in a DigitalInput array
+     * Accepts an int array which has the ports in which limit switches will be used
+     * @param digitalInputPorts
+     */
+        public DigitalInputHandler(int[] digitalInputPorts){
         ports = digitalInputPorts;
         
         listenersTable = new Hashtable();
@@ -41,7 +44,11 @@ public class DigitalInputHandler {
     
     //This method recieves vaules from the robot's DigitalInput/limit switches
     //Gets vaules from digital input ports
-    public void listen(){
+
+    /**
+     *
+     */
+        public void listen(){
         //the handler is lstening
         for(int i = 0; i < ports.length; i++){
             //System.out.println("is switched was switched");
@@ -74,7 +81,13 @@ public class DigitalInputHandler {
     //is assigned as the key of the Vector listeners
     //Accepts the int portnumber that the switch listener is assigned to and the
     //SwitchListner listener
-    public void addSwitchListener(int portNumber, SwitchListener listener){
+
+    /**
+     *
+     * @param portNumber
+     * @param listener
+     */
+        public void addSwitchListener(int portNumber, SwitchListener listener){
         Integer numberPort = Integer.valueOf(portNumber);
         Vector listeners = (Vector) listenersTable.get(numberPort);
         if(listeners == null) {
@@ -85,6 +98,11 @@ public class DigitalInputHandler {
         System.out.println("Attached Switch Listener to port " + numberPort);
     }
     
+    /**
+     *
+     * @param portNumbers
+     * @param listener
+     */
     public void addSwitchListener(int[] portNumbers, SwitchListener listener){
         for(int i = 0; i < portNumbers.length; i++){
             addSwitchListener(portNumbers[i], listener);
